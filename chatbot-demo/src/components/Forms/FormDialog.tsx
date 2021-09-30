@@ -6,16 +6,24 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import TextInput from './TextInput'
 
+// propsで値を持つ
 type Props = {
+    // boolean型のopen
     open: boolean
+    // void型のhandleClose
     handleClose: () => void
 }
 
+// FormDialogの定義
 const FormDialog: FC<Props> = ({ open, handleClose }) => {
+    // useStateの定義（name）
     const [name, setName] = useState('')
+    // useStateの定義（email）
     const [email, setEmail] = useState('')
+    // useStateの定義（description）
     const [description, setDescription] = useState('')
 
+    // （何をやっているか分からない）
     const inputName = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
             setName(event.target.value)
@@ -65,32 +73,40 @@ const FormDialog: FC<Props> = ({ open, handleClose }) => {
         // })
     }
 
+    // 値を返す
     return(
+        // ダイアログの設定
         <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
+          {/* ダイアログのタイトル */}
         <DialogTitle id="alert-dialog-title">お問い合わせ</DialogTitle>
         <DialogContent>
+            {/* ダイアログ内の名前入力エリアの設定 */}
             <TextInput 
                 label={"お名前（必須）"} multiline={false} rows={1}
                 value={name} type={"text"} onChange={inputName}
             />
+            {/* ダイアログ内のメールアドレス入力エリアの設定 */}
             <TextInput 
                 label={"メールアドレス（必須）"} multiline={false} rows={1}
                 value={email} type={"email"} onChange={inputEmail}
             />
+            {/* ダイアログ内のお問い合わせ内容入力エリアの設定 */}
             <TextInput 
                 label={"お問い合わせ内容（必須）"} multiline={true} rows={5}
                 value={description} type={"text"} onChange={inputDescription}
             />
         </DialogContent>
         <DialogActions>
+            {/* ダイアログのボタン */}
           <Button onClick={handleClose} color="primary">
             キャンセル
           </Button>
+          {/* ダイアログのボタン */}
           <Button onClick={submitForm} color="primary" autoFocus>
             送信
           </Button>
